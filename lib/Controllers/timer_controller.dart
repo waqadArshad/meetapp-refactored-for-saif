@@ -191,6 +191,7 @@ class TimerController extends GetxController {
         isMeetingRunning.value = false;
         log("cancel timer called.");
         timer.cancel();
+        log("cancel timer called.");
         // meetingMode(); //+ I added this 23-4
         log("local values are: minutes: $minutes and "
             "seconds: $seconds");

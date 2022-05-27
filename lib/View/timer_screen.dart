@@ -429,8 +429,10 @@ class _TimerState extends State<Timer> {
                                 ),
                               ),
                               Expanded(
-                                child: Obx(() {
-                                  return Text(
+                                child:
+    // Obx(() {
+    //                               return
+                                  Text(
                                     '\$ndndnd',
                                     style: TextStyle(
                                       fontSize: w * 4.8,
@@ -439,7 +441,7 @@ class _TimerState extends State<Timer> {
                                     ),
                                     textAlign: TextAlign.right,
                                   );
-                                }),
+                                // }),
                               ),
                             ],
                           ),
