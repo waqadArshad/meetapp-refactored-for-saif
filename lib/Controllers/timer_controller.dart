@@ -189,7 +189,6 @@ class TimerController extends GetxController {
         // meetingMode();
         isMeetingRunning.value = false;
         timer.cancel();
-        resetTimer();
         // meetingMode(); //+ I added this 23-4
         log("local values are: minutes: $minutes and "
             "seconds: $seconds");
@@ -273,7 +272,7 @@ class TimerController extends GetxController {
                 });
               });
         }
-
+        resetTimer();
         // showDialog(
         //     context: context,
         //     builder: (BuildContext context) =>
@@ -350,6 +349,7 @@ class TimerController extends GetxController {
         //+ setting or putting '0' in RTDB
 
         //+ let's also add a requested by ID in the data in RTDB
+        isDialogShown = false;
 
         log("current user id in -2 is: ${UserController().auth.currentUser?.uid} "
             "and other id is: ");
