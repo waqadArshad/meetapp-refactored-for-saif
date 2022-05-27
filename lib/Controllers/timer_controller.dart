@@ -186,8 +186,10 @@ class TimerController extends GetxController {
         log("is meeting end called ");
         String minutes = this.minutes.value;
         String seconds = this.seconds.value;
-        meetingMode();
-        // resetTimer();
+        // meetingMode();
+        isMeetingRunning.value = false;
+        timer.cancel();
+        resetTimer();
         // meetingMode(); //+ I added this 23-4
         log("local values are: minutes: $minutes and "
             "seconds: $seconds");
@@ -499,7 +501,7 @@ class TimerController extends GetxController {
           );
           Future.delayed(Duration(minutes: 1), () {
             log("is pause answered delayed checking");
-            Get.back();
+            // Get.back();
             if (!isPauseAnswered.value) {
               ref2.set({
                 // "startAt": FieldValue.serverTimestamp(),
