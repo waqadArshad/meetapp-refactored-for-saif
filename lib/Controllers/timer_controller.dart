@@ -83,7 +83,7 @@ class TimerController extends GetxController {
       log("the time is:: ${minutes.value}:${seconds.value}");
       log("in meeting mode else resetting time is::");
       timer.cancel();
-      resetTimer();
+      // resetTimer();
     }
     // update();
   }
@@ -198,13 +198,18 @@ class TimerController extends GetxController {
         extraTimeCharge = 0;
         if (int.parse(minutes) > request["duration"] ||
             (int.parse(minutes) == request["duration"])) {
+          log("inside minutes less if request['duration']: ${request["duration"]} \n\n "
+              " int.parse(minutes): ${int.parse(minutes)}");
+          currentCharge = request["price"] / request["duration"];
           totalCharge = request["duration"] * currentCharge;
           extraMinutes = (int.parse(minutes) - request["duration"]).toInt();
           extraSeconds = int.parse(seconds);
+          log("total charge is: $totalCharge");
           extraTimeCharge = extraMinutes * extraCharge;
           extraTimeCharge += extraSeconds * (extraCharge / 60);
           totalCharge += extraTimeCharge;
         } else {
+          log("inside else less if");
           totalCharge = int.parse(minutes) * currentCharge;
           totalCharge +=
               ((int.parse(seconds) * (currentCharge / 60)).toPrecision(3))
