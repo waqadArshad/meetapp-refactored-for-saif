@@ -228,47 +228,48 @@ class TimerController extends GetxController {
           pronoun = "You";
         }
 
-        if () {
-
+        if (isDialogShown) {
+          Get.defaultDialog(
+              barrierDismissible: false,
+              title: "Attention!",
+              middleText: "$name "
+                  "${name == "You" ? "were" : "was"} in the meeting for "
+                  "$minutes minutes and $seconds seconds. "
+                  "$pronoun ${pronoun == "You" ? "are" : "is"} being charged "
+                  "\$$totalCharge for "
+                  "this meeting.",
+              confirmTextColor: Colors.white,
+              textConfirm: "Ok",
+              onConfirm: () async {
+                //+HANDLE THIS HERE PLEASE IN WHATEVER WAY YOU WANT. yOU MIGHT ALSO WANT tO
+                //+DELETE THIS MEETING FRoM THE RECENT ONES OR THE REQUESTS AFTER THIS MEETING
+                //+ IS ENDED hERE
+                DateTime date = DateTime.now();
+                await FirebaseFirestore.instance
+                    .collection("connections")
+                    .add({
+                  "title": request["title"],
+                  "seller_id": request["seller_id"],
+                  "seller_name": request["seller_name"],
+                  "seller_image": request["seller_image"],
+                  "buyer_id": request["buyer_id"],
+                  "buyer_name": request["buyer_name"],
+                  "buyer_image": request["buyer_image"],
+                  "date":
+                  "${date.year}-${date.month.floor() < 10 ? "0" : ""}${date.month.floor()}-${date.day.floor() < 10 ? "0" : ""}${date.day.floor()}",
+                  "meeters": ["${request["seller_id"]}", "${request["buyer_id"]}"]
+                });
+                isDialogShown = false;
+                Get.back();
+                ref2.set({
+                  // "startAt": FieldValue.serverTimestamp(),
+                  "seconds": 0,
+                  "start_requester_id": dataMap["start_requester_id"],
+                  "pause_requester_id": dataMap["pause_requester_id"]
+                });
+              });
         }
-        Get.defaultDialog(
-            barrierDismissible: false,
-            title: "Attention!",
-            middleText: "$name "
-                "${name == "You" ? "were" : "was"} in the meeting for "
-                "$minutes minutes and $seconds seconds. "
-                "$pronoun ${pronoun == "You" ? "are" : "is"} being charged "
-                "\$$totalCharge for "
-                "this meeting.",
-            confirmTextColor: Colors.white,
-            textConfirm: "Ok",
-            onConfirm: () async {
-              //+HANDLE THIS HERE PLEASE IN WHATEVER WAY YOU WANT. yOU MIGHT ALSO WANT tO
-              //+DELETE THIS MEETING FRoM THE RECENT ONES OR THE REQUESTS AFTER THIS MEETING
-              //+ IS ENDED hERE
-              DateTime date = DateTime.now();
-              await FirebaseFirestore.instance
-                  .collection("connections")
-                  .add({
-                "title": request["title"],
-                "seller_id": request["seller_id"],
-                "seller_name": request["seller_name"],
-                "seller_image": request["seller_image"],
-                "buyer_id": request["buyer_id"],
-                "buyer_name": request["buyer_name"],
-                "buyer_image": request["buyer_image"],
-                "date":
-                    "${date.year}-${date.month.floor() < 10 ? "0" : ""}${date.month.floor()}-${date.day.floor() < 10 ? "0" : ""}${date.day.floor()}",
-                "meeters": ["${request["seller_id"]}", "${request["buyer_id"]}"]
-              });
-              Get.back();
-              ref2.set({
-                // "startAt": FieldValue.serverTimestamp(),
-                "seconds": 0,
-                "start_requester_id": dataMap["start_requester_id"],
-                "pause_requester_id": dataMap["pause_requester_id"]
-              });
-            });
+
         // showDialog(
         //     context: context,
         //     builder: (BuildContext context) =>
