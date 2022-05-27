@@ -262,7 +262,7 @@ class TimerController extends GetxController {
                   "meeters": ["${request["seller_id"]}", "${request["buyer_id"]}"]
                 });
                 isDialogShown = true;
-                // Get.back();
+                Get.back();
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": 0,
@@ -412,7 +412,7 @@ class TimerController extends GetxController {
             // Get.back();
             if (!isStartAnswered.value) {
               log("inside delayed check if");
-              Get.back();
+              // Get.back();
               if (isMeetingRunning.value) {
                 log("inside delayed check if");
                 ref2.set({
