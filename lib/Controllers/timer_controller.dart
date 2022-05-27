@@ -410,14 +410,18 @@ class TimerController extends GetxController {
             },
           );
 
+          log("isStartAnswered after the dialog is: ${isStartAnswered.value}");
+
           Future.delayed(const Duration(minutes: 1), () {
             log("inside delayed !isStartAnswered.value) checking.");
             // Get.back();
+            log("inside delayed !isStartAnswered.value) checking is: ${isStartAnswered.value}");
+
             if (!isStartAnswered.value) {
               log("inside delayed check if");
               // Get.back();
               if (isMeetingRunning.value) {
-                log("inside delayed check if");
+                log("inside delayed check if in is meeting running");
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": -1,
