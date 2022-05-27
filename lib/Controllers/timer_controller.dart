@@ -424,6 +424,9 @@ class TimerController extends GetxController {
                   "start_requester_id": dataMap["start_requester_id"],
                   "pause_requester_id": dataMap["pause_requester_id"]
                 });
+                if(dataMap["start_requester_id"] != UserController().auth.currentUser?.uid){
+                  Get.back();
+                }
               } else {
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
