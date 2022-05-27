@@ -174,12 +174,12 @@ class TimerController extends GetxController {
         //+ 0 means nothing for the other user -> means the timer won't start
         //+ when page is opened and 0 is in RTDB
         log("inside 0 wala");
-        isMeetingRunning.value = false;
-        if(timer.isActive){
-          log("inside timer is active");
-          timer.cancel();
-          resetTimer();
-        }
+        // isMeetingRunning.value = false;
+        // if(timer.isActive){
+        //   log("inside timer is active");
+        //   timer.cancel();
+        //   resetTimer();
+        // }
       } else if (timerSeconds.value == -1) {
         //+ -1 means the meeting is ended and  timer is reset and the value
         //+ in RTDB is changed to 0.
