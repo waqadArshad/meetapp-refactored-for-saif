@@ -431,9 +431,7 @@ class _TimerState extends State<Timer> {
                               Expanded(
                                 child: Obx(() {
                                   return Text(
-                                    '\$${timerController.getCurrentCharge(
-                                      request: widget.request,
-                                    )}',
+                                    '\$ndndnd',
                                     style: TextStyle(
                                       fontSize: w * 4.8,
                                       color: Colors.grey,
@@ -513,4 +511,29 @@ class _TimerState extends State<Timer> {
       ),
     );
   }
+
+  getCurrentCharge({required DocumentSnapshot request}){
+    currentCharge = request["price"] / request["duration"];
+
+    if (int.parse(timerController.minutes.value) > request["duration"] ||
+        (int.parse(timerController.minutes.value) == request["duration"])) {
+      log("inside minutes less if request['duration']: ${request["duration"]} \n\n "
+          " int.parse(minutes): ${int.parse(timerController.minutes.value)}");
+      totalCharge = request["duration"] * currentCharge;
+      extraMinutes = (int.parse(timerController.minutes.value) - request["duration"]).toInt();
+      extraSeconds = int.parse(timerController.seconds.value);
+      log("total charge is: $totalCharge");
+      extraTimeCharge = extraMinutes * extraCharge;
+      extraTimeCharge += extraSeconds * (extraCharge / 60);
+      totalCharge += extraTimeCharge;
+    } else {
+      log("inside else less if");
+      totalCharge = int.parse(timerController.minutes.value) * currentCharge;
+      totalCharge +=
+          ((int.parse(timerController.seconds.value) * (currentCharge / 60)).toPrecision(3))
+              .toPrecision(2);
+    }
+    return totalCharge.toPrecision(2);
+  }
+
 }
