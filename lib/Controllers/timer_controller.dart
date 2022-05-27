@@ -375,7 +375,7 @@ class TimerController extends GetxController {
               isStartAnswered.value = true;
               if (!isMeetingRunning.value) {
                 log("in -2 in yes !isMeetingRunning else");
-                // meetingMode();
+                meetingMode();
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": request["duration"],
@@ -385,6 +385,7 @@ class TimerController extends GetxController {
                 Get.back();
               } else {
                 log("in -2 !isMeetingRunning else");
+                meetingMode();
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": -1,
