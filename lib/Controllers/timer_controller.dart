@@ -167,11 +167,11 @@ class TimerController extends GetxController {
       Map<String, dynamic>? dataMap = data ?? {};
       // log("jsonData is: $jsonData");
       // log("dataMap is: ${dataMap['lSeconds'].runtimeType}");
-      log("dataMap is: ${dataMap['lSeconds']}");
+      log("dataMap is: ${dataMap['seconds']}");
       log("data is: $data");
       // Timestamp tmp = dataMap['startAt'] ?? Timestamp(0, 0);
       // startAt.value = dataMap != {} ? tmp.millisecondsSinceEpoch : 0;
-      timerSeconds.value = dataMap != {} ? dataMap['lSeconds'] : 0;
+      timerSeconds.value = dataMap != {} ? dataMap['seconds'] : 0;
       // log("values are: startAt.value: ${startAt.value} and "
       //     " timerSeconds.value: ${timerSeconds.value} and ");
       if (timerSeconds.value == 0) {
@@ -389,8 +389,6 @@ class TimerController extends GetxController {
               isStartAnswered.value = true;
               if (!isMeetingRunning.value) {
                 log("in -2 in yes !isMeetingRunning else");
-                lMinutes = minutes.value;
-                lSeconds = seconds.value;
                 meetingMode();
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
@@ -401,6 +399,8 @@ class TimerController extends GetxController {
                 Get.back();
               } else {
                 log("in -2 !isMeetingRunning else");
+                lMinutes = minutes.value;
+                lSeconds = seconds.value;
                 meetingMode();
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
