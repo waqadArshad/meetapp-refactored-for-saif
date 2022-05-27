@@ -196,11 +196,13 @@ class TimerController extends GetxController {
         extraMinutes = 0;
         extraSeconds = 0;
         extraTimeCharge = 0;
+        currentCharge = request["price"] / request["duration"];
+
+
         if (int.parse(minutes) > request["duration"] ||
             (int.parse(minutes) == request["duration"])) {
           log("inside minutes less if request['duration']: ${request["duration"]} \n\n "
               " int.parse(minutes): ${int.parse(minutes)}");
-          currentCharge = request["price"] / request["duration"];
           totalCharge = request["duration"] * currentCharge;
           extraMinutes = (int.parse(minutes) - request["duration"]).toInt();
           extraSeconds = int.parse(seconds);
