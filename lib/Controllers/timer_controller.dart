@@ -30,8 +30,8 @@ class TimerController extends GetxController {
   RxString minutes = '00'.obs;
   RxString seconds = '00'.obs;
 
-  String lMinutes = "";
-  String lSeconds = "";
+  String lMinutes = "00";
+  String lSeconds = "00";
 
   Duration duration = Duration();
   late Timer timer;
@@ -229,7 +229,7 @@ class TimerController extends GetxController {
         log("returnVValue of leaveChannel is:");
         log("\n\n\n"
             "You were in the meeting for "
-            "$lMinutes lMinutes and $lSeconds lSeconds. "
+            "$lMinutes minutes and $seconds lSeconds. "
             "You are being charged \$$totalCharge for "
             "this meeting."
             "\n\n\n");
@@ -250,7 +250,7 @@ class TimerController extends GetxController {
               title: "Attention!",
               middleText: "$name "
                   "${name == "You" ? "were" : "was"} in the meeting for "
-                  "$lMinutes lMinutes and $lSeconds lSeconds. "
+                  "$lMinutes minutes and $lSeconds seconds. "
                   "$pronoun ${pronoun == "You" ? "are" : "is"} being charged "
                   "\$${totalCharge.toPrecision(2)} for "
                   "this meeting.",
@@ -364,6 +364,8 @@ class TimerController extends GetxController {
 
         //+ let's also add a requested by ID in the data in RTDB
         isDialogShown = false;
+        lMinutes = minutes.value;
+        lSeconds = seconds.value;
 
         log("current user id in -2 is: ${UserController().auth.currentUser?.uid} "
             "and other id is: ");
