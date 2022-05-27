@@ -81,6 +81,7 @@ class TimerController extends GetxController {
       // buildTime();
     } else {
       log("the time is:: ${minutes.value}:${seconds.value}");
+      log("in meeting mode else resetting time is::");
       timer.cancel();
       resetTimer();
     }
@@ -228,7 +229,8 @@ class TimerController extends GetxController {
           pronoun = "You";
         }
 
-        if (isDialogShown) {
+        if (!isDialogShown) {
+          log("inside showing dialog");
           Get.defaultDialog(
               barrierDismissible: false,
               title: "Attention!",
