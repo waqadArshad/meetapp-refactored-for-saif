@@ -84,7 +84,7 @@ class TimerController extends GetxController {
       log("the time is:: ${minutes.value}:${seconds.value}");
       log("in meeting mode else resetting time is::");
       timer.cancel();
-      // resetTimer();
+      resetTimer();
     }
     // update();
   }
@@ -358,7 +358,7 @@ class TimerController extends GetxController {
         //+ setting or putting '0' in RTDB
 
         //+ let's also add a requested by ID in the data in RTDB
-        isDialogShown = false;
+        // isDialogShown = false;
 
         log("current user id in -2 is: ${UserController().auth.currentUser?.uid} "
             "and other id is: ");
