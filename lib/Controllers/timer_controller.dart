@@ -37,6 +37,31 @@ class TimerController extends GetxController {
   RxBool isEndAnswered = false.obs;
   RxBool isPauseAnswered = false.obs;
 
+
+  getCurrentCharge({required DocumentSnapshot request}){
+    currentCharge = request["price"] / request["duration"];
+
+    if (int.parse(minutes.value) > request["duration"] ||
+        (int.parse(minutes.value) == request["duration"])) {
+      log("inside minutes less if request['duration']: ${request["duration"]} \n\n "
+          " int.parse(minutes): ${int.parse(minutes.value)}");
+      totalCharge = request["duration"] * currentCharge;
+      extraMinutes = (int.parse(minutes.value) - request["duration"]).toInt();
+      extraSeconds = int.parse(seconds.value);
+      log("total charge is: $totalCharge");
+      extraTimeCharge = extraMinutes * extraCharge;
+      extraTimeCharge += extraSeconds * (extraCharge / 60);
+      totalCharge += extraTimeCharge;
+    } else {
+      log("inside else less if");
+      totalCharge = int.parse(minutes.value) * currentCharge;
+      totalCharge +=
+          ((int.parse(seconds.value) * (currentCharge / 60)).toPrecision(3))
+              .toPrecision(2);
+    }
+    return totalCharge.toPrecision(2);
+  }
+
   void addTime() {
     final addSeconds = 1;
     final seconds = duration.inSeconds + addSeconds;
@@ -198,7 +223,6 @@ class TimerController extends GetxController {
         extraTimeCharge = 0;
         currentCharge = request["price"] / request["duration"];
 
-
         if (int.parse(minutes) > request["duration"] ||
             (int.parse(minutes) == request["duration"])) {
           log("inside minutes less if request['duration']: ${request["duration"]} \n\n "
@@ -246,7 +270,7 @@ class TimerController extends GetxController {
                   "${name == "You" ? "were" : "was"} in the meeting for "
                   "$minutes minutes and $seconds seconds. "
                   "$pronoun ${pronoun == "You" ? "are" : "is"} being charged "
-                  "\$$totalCharge for "
+                  "\$${totalCharge.toPrecision(2)} for "
                   "this meeting.",
               confirmTextColor: Colors.white,
               textConfirm: "Ok",

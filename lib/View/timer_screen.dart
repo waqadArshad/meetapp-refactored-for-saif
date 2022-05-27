@@ -13,9 +13,9 @@ import '../Constants/controllers.dart';
 import '../Constants/get_token.dart';
 import '../Providers/user_controller.dart';
 
-
 class Timer extends StatefulWidget {
   final DocumentSnapshot request;
+
   Timer(this.request);
 
   @override
@@ -48,12 +48,10 @@ class _TimerState extends State<Timer> {
     extraCharge = currentCharge + (currentCharge * 0.3);
     log("currentCharge is: $currentCharge and extraCharge is: $extraCharge");
     timerController.startStream(widget.request);
-    var directory = getChatRoomIdByUsernames(
-        widget.request['seller_id'], widget.request['buyer_id']);
+    var directory = getChatRoomIdByUsernames(widget.request['seller_id'], widget.request['buyer_id']);
 
     ref = FirebaseDatabase.instance.ref().child('$directory/');
-    ref2 =
-        FirebaseFirestore.instance.collection("InMeetingRecord").doc(directory);
+    ref2 = FirebaseFirestore.instance.collection("InMeetingRecord").doc(directory);
   }
 
   @override
@@ -67,8 +65,7 @@ class _TimerState extends State<Timer> {
             physics: const BouncingScrollPhysics(),
             child: Center(
               child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: h * 3.3, horizontal: w * 7.3),
+                  padding: EdgeInsets.symmetric(vertical: h * 3.3, horizontal: w * 7.3),
                   child: Column(
                     children: [
                       SizedBox(
@@ -102,9 +99,7 @@ class _TimerState extends State<Timer> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(500),
                               image: const DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/data/clock.png'),
-                                  fit: BoxFit.cover),
+                                  image: AssetImage('assets/images/data/clock.png'), fit: BoxFit.cover),
                             ),
                           ),
                           onTap: () async {
@@ -125,15 +120,13 @@ class _TimerState extends State<Timer> {
                               ref2.set({
                                 // "startAt": FieldValue.serverTimestamp(),
                                 "seconds": -2,
-                                "start_requester_id":
-                                    UserController().auth.currentUser?.uid,
+                                "start_requester_id": UserController().auth.currentUser?.uid,
                                 "pause_requester_id": ""
                               }).then((value) {
                                 ref.set({
                                   "startAt": ServerValue.timestamp,
                                   "seconds": -2,
-                                  "start_requester_id":
-                                  UserController().auth.currentUser?.uid,
+                                  "start_requester_id": UserController().auth.currentUser?.uid,
                                   "pause_requester_id": ""
                                 });
                                 log("in on Tap passed a start/stop request");
@@ -168,8 +161,7 @@ class _TimerState extends State<Timer> {
                               //         ));
                               Get.defaultDialog(
                                   title: "Error!",
-                                  middleText:
-                                      "Following error was thrown while "
+                                  middleText: "Following error was thrown while "
                                       "starting the meeting timer: ${e.toString()}");
                             }
                             // } else {
@@ -182,15 +174,13 @@ class _TimerState extends State<Timer> {
                                 // "startAt": FieldValue.serverTimestamp(),
                                 "seconds": 2,
                                 "start_requester_id": "",
-                                "pause_requester_id":
-                                    UserController().auth.currentUser?.uid
+                                "pause_requester_id": UserController().auth.currentUser?.uid
                               }).then((value) {
                                 ref.set({
                                   "startAt": ServerValue.timestamp,
                                   "seconds": 2,
                                   "start_requester_id": "",
-                                  "pause_requester_id":
-                                  UserController().auth.currentUser?.uid
+                                  "pause_requester_id": UserController().auth.currentUser?.uid
                                 });
                                 log("in on long press passing a pause request");
                               });
@@ -439,15 +429,19 @@ class _TimerState extends State<Timer> {
                                 ),
                               ),
                               Expanded(
-                                child: Text(
-                                  '\$${currentCharge.toPrecision(2)}/1 min',
-                                  style: TextStyle(
-                                    fontSize: w * 4.8,
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  textAlign: TextAlign.right,
-                                ),
+                                child: Obx(() {
+                                  return Text(
+                                    '\$${timerController.getCurrentCharge(
+                                      request: widget.request,
+                                    )}',
+                                    style: TextStyle(
+                                      fontSize: w * 4.8,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  );
+                                }),
                               ),
                             ],
                           ),
@@ -458,10 +452,7 @@ class _TimerState extends State<Timer> {
                       ),
                       Text(
                         'Having a issue?',
-                        style: TextStyle(
-                            fontSize: w * 4.8,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black),
+                        style: TextStyle(fontSize: w * 4.8, fontWeight: FontWeight.w500, color: Colors.black),
                       ),
                       SizedBox(
                         height: h * 2.2,
@@ -472,8 +463,7 @@ class _TimerState extends State<Timer> {
                             alignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               ConstrainedBox(
-                                constraints: BoxConstraints.tightFor(
-                                    width: w * 38.0, height: h * 5.0),
+                                constraints: BoxConstraints.tightFor(width: w * 38.0, height: h * 5.0),
                                 child: ElevatedButton(
                                   onPressed: () {},
                                   child: Text(
@@ -493,8 +483,7 @@ class _TimerState extends State<Timer> {
                                 ),
                               ),
                               ConstrainedBox(
-                                constraints: BoxConstraints.tightFor(
-                                    width: w * 38.0, height: h * 5.0),
+                                constraints: BoxConstraints.tightFor(width: w * 38.0, height: h * 5.0),
                                 child: ElevatedButton(
                                   onPressed: () {},
                                   child: Text(
