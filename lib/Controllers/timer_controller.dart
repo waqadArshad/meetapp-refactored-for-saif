@@ -261,8 +261,8 @@ class TimerController extends GetxController {
                   "${date.year}-${date.month.floor() < 10 ? "0" : ""}${date.month.floor()}-${date.day.floor() < 10 ? "0" : ""}${date.day.floor()}",
                   "meeters": ["${request["seller_id"]}", "${request["buyer_id"]}"]
                 });
-                isDialogShown = false;
-                Get.back();
+                isDialogShown = true;
+                // Get.back();
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": 0,
