@@ -184,7 +184,8 @@ class TimerController extends GetxController {
         //   timer.cancel();
         //   resetTimer();
         // }
-      } else if (timerSeconds.value == -1) {
+      }
+      else if (timerSeconds.value == -1) {
         //+ -1 means the meeting is ended and  timer is reset and the value
         //+ in RTDB is changed to 0.
         log("is meeting end called ");
@@ -223,8 +224,8 @@ class TimerController extends GetxController {
                   .toPrecision(2);
         }
         // resetTimer();
-        log("after refreshing lMinutes: $lMinutes"
-            " lSeconds: $lSeconds");
+        log("after refreshing minutes: $minutes"
+            " Seconds: $seconds");
         log("returnVValue of leaveChannel is:");
         log("\n\n\n"
             "You were in the meeting for "
@@ -278,7 +279,7 @@ class TimerController extends GetxController {
                 Get.back();
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
-                  "lSeconds": 0,
+                  "seconds": 0,
                   "start_requester_id": dataMap["start_requester_id"],
                   "pause_requester_id": dataMap["pause_requester_id"]
                 });
@@ -337,7 +338,8 @@ class TimerController extends GetxController {
         //   "start_requester_id": dataMap["start_requester_id"],
         //   "pause_requester_id": dataMap["pause_requester_id"]
         // });
-      } else if (timerSeconds.value == 1) {
+      }
+      else if (timerSeconds.value == 1) {
         //+means it is paused
         //+ 1 means the timer is to be paused for the both the users.
         // timer.cancel();
@@ -348,7 +350,7 @@ class TimerController extends GetxController {
         pauseMode();
         ref2.set({
           // "startAt": FieldValue.serverTimestamp(),
-          "lSeconds": 0,
+          "seconds": 0,
           "start_requester_id": dataMap["start_requester_id"],
           "pause_requester_id": dataMap["pause_requester_id"]
         });
@@ -392,7 +394,7 @@ class TimerController extends GetxController {
                 meetingMode();
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
-                  "lSeconds": request["duration"],
+                  "seconds": request["duration"],
                   "start_requester_id": dataMap["start_requester_id"],
                   "pause_requester_id": dataMap["pause_requester_id"]
                 });
@@ -404,7 +406,7 @@ class TimerController extends GetxController {
                 meetingMode();
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
-                  "lSeconds": -1,
+                  "seconds": -1,
                   "start_requester_id": dataMap["start_requester_id"],
                   "pause_requester_id": dataMap["pause_requester_id"]
                 });
@@ -417,7 +419,7 @@ class TimerController extends GetxController {
               isStartAnswered.value = true;
               ref2.set({
                 // "startAt": FieldValue.serverTimestamp(),
-                "lSeconds": 0,
+                "seconds": 0,
                 "start_requester_id": dataMap["start_requester_id"],
                 "pause_requester_id": dataMap["pause_requester_id"]
               });
@@ -438,7 +440,7 @@ class TimerController extends GetxController {
                 log("inside delayed check if in is meeting running");
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
-                  "lSeconds": -1,
+                  "seconds": -1,
                   "start_requester_id": dataMap["start_requester_id"],
                   "pause_requester_id": dataMap["pause_requester_id"]
                 });
@@ -449,7 +451,7 @@ class TimerController extends GetxController {
               } else {
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
-                  "lSeconds": 0,
+                  "seconds": 0,
                   "start_requester_id": dataMap["start_requester_id"],
                   "pause_requester_id": dataMap["pause_requester_id"]
                 });
@@ -464,7 +466,7 @@ class TimerController extends GetxController {
         // timer2.cancel();
         // resetTimer2();
         // isMeetingRunning2.value = false;
-        // ref2.set({"startAt": FieldValue.serverTimestamp(), "lSeconds": 0});
+        // ref2.set({"startAt": FieldValue.serverTimestamp(), "seconds": 0});
       } else if (timerSeconds.value == 2) {
         //+ 2 means a pause request is made, if accepted, we set '1' in the RTDB for informing both timers about pause
         //+ if rejected means pausing is not an option setting the value back to Requested Time
@@ -494,7 +496,7 @@ class TimerController extends GetxController {
               if (!isMeetingPaused.value) {
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
-                  "lSeconds": 1,
+                  "seconds": 1,
                   "start_requester_id": dataMap["start_requester_id"],
                   "pause_requester_id": dataMap["pause_requester_id"]
                 });
@@ -502,7 +504,7 @@ class TimerController extends GetxController {
               } else {
                 ref2.set({
                   // "startAt": FieldValue.serverTimestamp(),
-                  "lSeconds": request["duration"],
+                  "seconds": request["duration"],
                   "start_requester_id": dataMap["start_requester_id"],
                   "pause_requester_id": dataMap["pause_requester_id"]
                 });
@@ -515,7 +517,7 @@ class TimerController extends GetxController {
               isPauseAnswered.value = true;
               ref2.set({
                 // "startAt": FieldValue.serverTimestamp(),
-                "lSeconds": 0,
+                "seconds": 0,
                 "start_requester_id": dataMap["start_requester_id"],
                 "pause_requester_id": dataMap["pause_requester_id"]
               });
@@ -527,7 +529,7 @@ class TimerController extends GetxController {
             if (!isPauseAnswered.value) {
               ref2.set({
                 // "startAt": FieldValue.serverTimestamp(),
-                "lSeconds": 1,
+                "seconds": 1,
                 "start_requester_id": dataMap["start_requester_id"],
                 "pause_requester_id": dataMap["pause_requester_id"]
               }).then((value) => log("from !isPauseAnswered.value"));
@@ -537,7 +539,7 @@ class TimerController extends GetxController {
         // timer2.cancel();
         // resetTimer2();
         // isMeetingRunning2.value = false;
-        // ref2.set({"startAt": FieldValue.serverTimestamp(), "lSeconds": 0});
+        // ref2.set({"startAt": FieldValue.serverTimestamp(), "seconds": 0});
       } else {
         //+ if the number is none of the code related things
         log("inside callback else");
