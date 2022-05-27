@@ -425,6 +425,7 @@ class TimerController extends GetxController {
                   "pause_requester_id": dataMap["pause_requester_id"]
                 });
                 if(dataMap["start_requester_id"] != UserController().auth.currentUser?.uid){
+                  log("inside the start requester id check if");
                   Get.back();
                 }
               } else {
