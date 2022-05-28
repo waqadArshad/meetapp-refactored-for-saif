@@ -277,7 +277,7 @@ class TimerController extends GetxController {
                 });
                 isDialogShown = true;
                 Get.back();
-                ref2.set({
+                ref2.update({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": 0,
                   "start_requester_id": dataMap["start_requester_id"],
@@ -348,7 +348,7 @@ class TimerController extends GetxController {
         // if (!isMeetingPaused.value) {
         // isMeetingPaused.value = true;
         pauseMode();
-        ref2.set({
+        ref2.update({
           // "startAt": FieldValue.serverTimestamp(),
           "seconds": 0,
           "start_requester_id": dataMap["start_requester_id"],
@@ -369,6 +369,9 @@ class TimerController extends GetxController {
 
         log("current user id in -2 is: ${UserController().auth.currentUser?.uid} "
             "and other id is: ");
+
+        // if(request.id == dataMap){}
+
         if (UserController().auth.currentUser?.uid !=
             dataMap["start_requester_id"]) {
           //+ this means I am the buyer and I should see the dialog regarding start of meeting
@@ -394,7 +397,7 @@ class TimerController extends GetxController {
               if (!isMeetingRunning.value) {
                 log("in -2 in yes !isMeetingRunning else");
                 meetingMode();
-                ref2.set({
+                ref2.update({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": request["duration"],
                   "start_requester_id": dataMap["start_requester_id"],
@@ -406,7 +409,7 @@ class TimerController extends GetxController {
                 lMinutes = minutes.value;
                 lSeconds = seconds.value;
                 meetingMode();
-                ref2.set({
+                ref2.update({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": -1,
                   "start_requester_id": dataMap["start_requester_id"],
@@ -419,7 +422,7 @@ class TimerController extends GetxController {
             textCancel: "No",
             onCancel: () {
               isStartAnswered.value = true;
-              ref2.set({
+              ref2.update({
                 // "startAt": FieldValue.serverTimestamp(),
                 "seconds": 0,
                 "start_requester_id": dataMap["start_requester_id"],
@@ -440,7 +443,7 @@ class TimerController extends GetxController {
               // Get.back();
               if (isMeetingRunning.value) {
                 log("inside delayed check if in is meeting running");
-                ref2.set({
+                ref2.update({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": -1,
                   "start_requester_id": dataMap["start_requester_id"],
@@ -451,7 +454,7 @@ class TimerController extends GetxController {
                   Get.back();
                 }
               } else {
-                ref2.set({
+                ref2.update({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": 0,
                   "start_requester_id": dataMap["start_requester_id"],
@@ -496,7 +499,7 @@ class TimerController extends GetxController {
             onConfirm: () {
               isPauseAnswered.value = true;
               if (!isMeetingPaused.value) {
-                ref2.set({
+                ref2.update({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": 1,
                   "start_requester_id": dataMap["start_requester_id"],
@@ -504,7 +507,7 @@ class TimerController extends GetxController {
                 });
                 Get.back();
               } else {
-                ref2.set({
+                ref2.update({
                   // "startAt": FieldValue.serverTimestamp(),
                   "seconds": request["duration"],
                   "start_requester_id": dataMap["start_requester_id"],
@@ -517,7 +520,7 @@ class TimerController extends GetxController {
             textCancel: "No",
             onCancel: () {
               isPauseAnswered.value = true;
-              ref2.set({
+              ref2.update({
                 // "startAt": FieldValue.serverTimestamp(),
                 "seconds": 0,
                 "start_requester_id": dataMap["start_requester_id"],
@@ -529,7 +532,7 @@ class TimerController extends GetxController {
             log("is pause answered delayed checking");
             // Get.back();
             if (!isPauseAnswered.value) {
-              ref2.set({
+              ref2.update({
                 // "startAt": FieldValue.serverTimestamp(),
                 "seconds": 1,
                 "start_requester_id": dataMap["start_requester_id"],

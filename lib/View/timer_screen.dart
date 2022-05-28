@@ -31,6 +31,7 @@ class _TimerState extends State<Timer> {
   double totalCharge = 0.0;
   late DatabaseReference ref;
   late DocumentReference ref2;
+  var directory;
 
   getChatRoomIdByUsernames(String a, String b) {
     if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
@@ -48,7 +49,7 @@ class _TimerState extends State<Timer> {
     extraCharge = currentCharge + (currentCharge * 0.3);
     log("currentCharge is: $currentCharge and extraCharge is: $extraCharge");
     timerController.startStream(widget.request);
-    var directory = getChatRoomIdByUsernames(widget.request['seller_id'], widget.request['buyer_id']);
+    directory = getChatRoomIdByUsernames(widget.request['seller_id'], widget.request['buyer_id']);
 
     ref = FirebaseDatabase.instance.ref().child('$directory/');
     ref2 = FirebaseFirestore.instance.collection("InMeetingRecord").doc(directory);
@@ -83,8 +84,9 @@ class _TimerState extends State<Timer> {
                                 child: Text(
                                   timerController.isMeetingRunning.value
                                       ? '${timerController.minutes}:${timerController.seconds}'
-                                          '\n Long press\nto pause or\nresume meeting.'
-                                      : 'Touch to\nbegin your\nmeeting',
+                                          '\n Long press\nto pause or\nresume &'
+                                      '\n Touch to end.'
+                                      : 'Touch to\nbegin/end your\nmeeting',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: w * 4.8,
@@ -119,11 +121,13 @@ class _TimerState extends State<Timer> {
                               //+ requesting meeting start or stop.
                               ref2.set({
                                 // "startAt": FieldValue.serverTimestamp(),
+                                "meetId": directory,
                                 "seconds": -2,
                                 "start_requester_id": UserController().auth.currentUser?.uid,
                                 "pause_requester_id": ""
                               }).then((value) {
                                 ref.set({
+                                  "meetId": directory,
                                   "startAt": ServerValue.timestamp,
                                   "seconds": -2,
                                   "start_requester_id": UserController().auth.currentUser?.uid,
@@ -172,11 +176,13 @@ class _TimerState extends State<Timer> {
                             if (timerController.isMeetingRunning.value) {
                               ref2.set({
                                 // "startAt": FieldValue.serverTimestamp(),
+                                "meetId": directory,
                                 "seconds": 2,
                                 "start_requester_id": "",
                                 "pause_requester_id": UserController().auth.currentUser?.uid
                               }).then((value) {
                                 ref.set({
+                                  "meetId": directory,
                                   "startAt": ServerValue.timestamp,
                                   "seconds": 2,
                                   "start_requester_id": "",
